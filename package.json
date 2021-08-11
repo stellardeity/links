@@ -1,0 +1,21 @@
+{
+  "name": "filmography",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/antaresofficial/filmography.git",
+  "author": "antaresofficial <maria.b.2021.06@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "config": "^3.3.6",
+    "express": "^4.17.1",
+    "mongoose": "^5.13.6"
+  },
+  "devDependencies": {
+    "concurrently": "^6.2.1",
+    "nodemon": "^2.0.12"
+  }
+}
