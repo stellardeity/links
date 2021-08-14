@@ -1,9 +1,9 @@
-import { Button } from "@material-ui/core";
+import { Container } from "@material-ui/core";
+import { useRoutes } from "./routes";
 
-const App = () => (
-  <Button variant="contained" color="secondary">
-    Hello World
-  </Button>
-);
+const App = () => {
+  const routes = useRoutes(false);
+  return <Container>{routes}</Container>;
+};
 
 export default App;
