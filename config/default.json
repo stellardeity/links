@@ -1,4 +1,5 @@
 {
-    "port": 3000,
-    "mongoUri": "mongodb+srv://antares:new_user31@cluster0.gm9br.mongodb.net/filmography"
+    "port": 8080,
+    "mongoUri": "mongodb+srv://antares:new_user31@cluster0.gm9br.mongodb.net/filmography",
+    "jwtSecret": "My universe is a cucumber"
 }
