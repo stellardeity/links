@@ -48,6 +48,7 @@ export const Auth = () => {
       />
       <TextField
         required
+        type="password"
         name="password"
         label="Password"
         placeholder="password"
