@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { useHttp } from "../hooks/http.hook";
 import { TextField, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 
@@ -7,23 +8,63 @@ const useStyles = makeStyles({
     marginTop: "50px",
     display: "grid",
     placeItems: "center",
-  },
-});
+    },
+  });
 
-export const Auth = () => {
-  const classes = useStyles();
+  export const Auth = () => {
+    const classes = useStyles();
+    const { loading, request } = useHttp();
+    const [form, setForm] = useState({
+      email: "",
+      password: "",
+    });
+
+    const changeHandler = (event) => {
+      setForm({ ...form, [event.target.name]: event.target.value });
+    };
+
+  const registerHandler = async () => {
+    try {
+      const data = await request("/auth/register", "POST", { ...form });
+      console.log(data);
+    } catch (e) {}
+  };
+
   return (
     <form className={classes.auth}>
-      <TextField required label="Login" placeholder="login" />
-      <TextField required label="Password" placeholder="password" />
-      <Button
-        style={{ marginTop: "10px" }}
-        type="button"
-        variant="contained"
-        color="primary"
-      >
-        Log in
-      </Button>
+      <TextField
+        required
+        name="email"
+        label="Login"
+        placeholder="login"
+        onChange={changeHandler}
+      />
+      <TextField
+        required
+        name="password"
+        label="Password"
+        placeholder="password"
+        onChange={changeHandler}
+      />
+      <div>
+        <Button
+          style={{ margin: "10px" }}
+          onClick={registerHandler}
+          variant="contained"
+          color="primary"
+          disabled={loading}
+        >
+          Sign in
+        </Button>
+        <Button
+          style={{ margin: "10px" }}
+          variant="contained"
+          color="primary"
+          disabled={loading}
+        >
+          Log in
+        </Button>
+      </div>
     </form>
   );
 };
