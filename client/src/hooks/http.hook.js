@@ -8,7 +8,12 @@ export const useHttp = () => {
     async (url, method = "GET", body = null, headers = {}) => {
       setLoading(true);
       try {
-        const response = await fetch(`https://localhost:8080/api${url}`, {
+        if (body) {
+          body = JSON.stringify(body);
+          headers["Content-Type"] = "application/json";
+        }
+
+        const response = await fetch(`http://localhost:8080/api${url}`, {
           method,
           body,
           headers,
