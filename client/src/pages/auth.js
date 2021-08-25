@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useHttp } from "../hooks/http.hook";
 import { useMessage } from "../hooks/message.hook";
 import { TextField, Button } from "@material-ui/core";
@@ -13,6 +13,7 @@ const useStyles = makeStyles({
 });
 
 export const Auth = () => {
+  const auth = useContext(AuthContext);
   const classes = useStyles();
   const { loading, request, error, clearError } = useHttp();
   const message = useMessage();
