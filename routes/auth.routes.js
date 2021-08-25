@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const { check, validationResult } = require("express-validator");
 const User = require("../models/User");
 const router = Router();
+const config = require("config");
 
 router.post(
   "/register",
@@ -70,7 +71,7 @@ router.post(
       const isMatch = await bcrypt.compare(password, user.password);
 
       if (!isMatch) {
-        return res.status
+        return res
           .status(400)
           .json({ message: "Incorrect password, try again" });
       }
@@ -81,7 +82,7 @@ router.post(
 
       res.json({ token, userId: user.id });
     } catch (e) {
-      res.status(500).json({ message: "Server Error" });
+      res.status(500).json({ message: "Server Error Login" });
     }
   }
 );

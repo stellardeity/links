@@ -3,6 +3,7 @@ import { useHttp } from "../hooks/http.hook";
 import { useMessage } from "../hooks/message.hook";
 import { TextField, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
+import { AuthContext } from "../context/auth.context";
 
 const useStyles = makeStyles({
   auth: {
@@ -38,6 +39,13 @@ export const Auth = () => {
     } catch (e) {}
   };
 
+  const loginHandler = async () => {
+    try {
+      const data = await request("/auth/login", "POST", { ...form });
+      auth.login(data.token, data.userId);
+    } catch (e) {}
+  };
+
   return (
     <form className={classes.auth}>
       <TextField
@@ -67,6 +75,7 @@ export const Auth = () => {
         </Button>
         <Button
           style={{ margin: "10px" }}
+          onClick={loginHandler}
           variant="contained"
           color="primary"
           disabled={loading}
