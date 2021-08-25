@@ -1,12 +1,13 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import { AppBar, Button, IconButton, Toolbar, Typography } from "@material-ui/core";
+import React, { MouseEvent, useContext } from "react";
+import { NavLink, useHistory } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
 
 export const Navbar = () => {
   const history = useHistory();
   const auth = useContext(AuthContext);
 
-  const logoutHandler = (e) => {
+  const logoutHandler = (e: MouseEvent) => {
     e.preventDefault();
     auth.logout();
     history.push("/");
@@ -16,7 +17,7 @@ export const Navbar = () => {
     <AppBar position="static">
       <Toolbar>
         <IconButton edge="start" color="inherit" aria-label="menu">
-          <MenuIcon />
+        <Typography variant="h6">Links</Typography>
         </IconButton>
         <NavLink to="/create">
           <Typography variant="h6">Create</Typography>
