@@ -2,7 +2,7 @@ import React from "react";
 import { Links, Create, Detail, Auth } from "./pages";
 import { Switch, Route, Redirect } from "react-router-dom";
 
-export const useRoutes = (isAuthenticated) => {
+export const useRoutes = (isAuthenticated: boolean) => {
   if (isAuthenticated) {
     return (
       <Switch>

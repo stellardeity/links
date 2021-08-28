@@ -49,6 +49,7 @@ export const Auth = () => {
   return (
     <form className={classes.auth}>
       <TextField
+        // autoFocus
         required
         name="email"
         label="Login"

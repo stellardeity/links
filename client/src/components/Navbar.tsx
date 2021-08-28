@@ -30,14 +30,10 @@ export const Navbar = () => {
       <Toolbar className={classes.root}>
         <div>
           <NavLink className={classes.navlink} to="/create">
-            <Button color="inherit">
-              Create
-            </Button>
+            <Button color="inherit">Create</Button>
           </NavLink>
           <NavLink className={classes.navlink} to="/links">
-            <Button color="inherit">
-              Links
-            </Button>
+            <Button color="inherit">Links</Button>
           </NavLink>
         </div>
         <Button onClick={logoutHandler} color="inherit">
