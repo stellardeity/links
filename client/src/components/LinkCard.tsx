@@ -1,8 +1,8 @@
 import React from "react";
-import { Link } from "../interfaces";
+import { ILink } from "../interfaces";
 import { Loader } from "./Loader";
 
-export const LinkCard = ({ link }: { link: Link | null }) => {
+export const LinkCard = ({ link }: { link: ILink | null }) => {
   if (!link) {
     return <Loader />;
   }
