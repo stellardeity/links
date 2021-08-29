@@ -1,16 +1,10 @@
-import React, { useState, useCallback, useEffect } from "react";
-import { Loader } from "../components/Loader";
-
+import { useState, useCallback, useEffect } from "react";
 const storageName = "userData";
 
 export const useAuth = () => {
   const [token, setToken] = useState(null);
-  // const [ready, setReady] = useState(false);
+  const [ready, setReady] = useState(false);
   const [userId, setUserId] = useState(null);
-
-  // if (!ready) {
-  //   return <Loader />;
-  // }
 
   const login = useCallback((jwtToken, id) => {
     setToken(jwtToken);
@@ -34,8 +28,8 @@ export const useAuth = () => {
     if (data && data.token) {
       login(data.token, data.userId);
     }
-    // setReady(true);
+    setReady(true);
   }, [login]);
 
-  return { login, logout, token, userId };
+  return { login, logout, token, userId, ready };
 };
