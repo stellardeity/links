@@ -34,7 +34,7 @@ const LinksList = ({ links }: { links: Array<ILink> }) => {
                 {i + 1}
               </TableCell>
               <TableCell align="right">{link.from}</TableCell>
-              <TableCell align="right"><Link to={`/detail/${link._id}`}>{link.to}</Link></TableCell>
+              <TableCell align="right"><Link to={`/detail/${link._id}`}>Open</Link></TableCell>
               <TableCell align="right">{link.clicks}</TableCell>
               <TableCell align="right">{link.date}</TableCell>
             </TableRow>

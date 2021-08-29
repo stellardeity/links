@@ -23,7 +23,7 @@ export const Create = () => {
     if (ev.key === "Enter") {
       try {
         const data = await request(
-          "/link/generate",
+          "api/link/generate",
           "POST",
           {
             from: link,

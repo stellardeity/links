@@ -13,7 +13,7 @@ export const Detail = () => {
 
   const getLink = useCallback(async () => {
     try {
-      const fetched = await request(`/link/${linkId}`, "GET", null, {
+      const fetched = await request(`api/link/${linkId}`, "GET", null, {
         Authorization: `Bearer ${token}`,
       });
       setLink(fetched);

@@ -12,7 +12,7 @@ export const Links = () => {
 
   const fetchLinks = useCallback(async () => {
     try {
-      const fetched = await request("/link", "GET", null, {
+      const fetched = await request("api/link", "GET", null, {
         Authorization: `Bearer ${token}`,
       });
       setLinks(fetched);

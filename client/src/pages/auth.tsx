@@ -34,14 +34,13 @@ export const Auth = () => {
 
   const registerHandler = async () => {
     try {
-      const data = await request("/auth/register", "POST", { ...form });
-      console.log(data);
+      await request("api/auth/register", "POST", { ...form });
     } catch (e) {}
   };
 
   const loginHandler = async () => {
     try {
-      const data = await request("/auth/login", "POST", { ...form });
+      const data = await request("api/auth/login", "POST", { ...form });
       auth.login(data.token, data.userId);
     } catch (e) {}
   };

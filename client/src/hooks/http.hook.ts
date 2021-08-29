@@ -10,11 +10,10 @@ export const useHttp = () => {
       try {
         if (body) {
           body = JSON.stringify(body);
-          console.log(body);
           headers["Content-Type"] = "application/json";
         }
 
-        const response = await fetch(`http://localhost:8080/api${url}`, {
+        const response = await fetch(`http://localhost:8080/${url}`, {
           method,
           body,
           headers,
