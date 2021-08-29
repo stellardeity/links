@@ -54,6 +54,7 @@ export const Auth = () => {
         name="email"
         label="Login"
         placeholder="login"
+        value={form.email}
         onChange={changeHandler}
       />
       <TextField
@@ -62,6 +63,7 @@ export const Auth = () => {
         name="password"
         label="Password"
         placeholder="password"
+        value={form.password}
         onChange={changeHandler}
       />
       <div>

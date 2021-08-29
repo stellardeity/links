@@ -10,6 +10,7 @@ export const useHttp = () => {
       try {
         if (body) {
           body = JSON.stringify(body);
+          console.log(body);
           headers["Content-Type"] = "application/json";
         }
 
