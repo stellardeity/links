@@ -1,6 +1,6 @@
 {
     "port": 8080,
-    "mongoUri": "mongodb+srv://antares:new_user31@root.gm9br.mongodb.net/filmography",
+    "mongoUri": "mongodb+srv://antares:new_user31@root.gm9br.mongodb.net/links",
     "jwtSecret": "My universe is a cucumber",
     "baseUrl": "http://localhost:8080"
 }

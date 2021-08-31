@@ -1,8 +1,8 @@
 {
-  "name": "filmography",
+  "name": "Links",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/antaresofficial/filmography.git",
+  "repository": "https://github.com/antaresofficial/links.git",
   "author": "antaresofficial <maria.b.2021.06@gmail.com>",
   "license": "MIT",
   "scripts": {
