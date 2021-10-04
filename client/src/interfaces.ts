@@ -7,3 +7,8 @@ export interface ILink {
   clicks: number;
   owner: string;
 }
+
+export type ToServerLoginData = {
+  email: string;
+  password: string;
+}

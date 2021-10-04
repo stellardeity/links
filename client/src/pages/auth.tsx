@@ -1,90 +1,39 @@
-import React, { useState, useEffect, useContext, ChangeEvent } from "react";
+import React, { useEffect, useContext } from "react";
 import { useHttp } from "../hooks/http.hook";
 import { useMessage } from "../hooks/message.hook";
-import { TextField, Button } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
 import { AuthContext } from "../context/auth.context";
-
-const useStyles = makeStyles({
-  auth: {
-    marginTop: "50px",
-    display: "grid",
-    placeItems: "center",
-  },
-});
+import { ToServerLoginData } from "../interfaces";
+import { Login } from "../components/Login";
+import { Tabs } from "antd";
+import { Register } from "../components/Register";
 
 export const Auth = () => {
   const auth = useContext(AuthContext);
-  const classes = useStyles();
-  const { loading, request, error, clearError } = useHttp();
+  const { request, error, clearError } = useHttp();
   const message = useMessage();
-  const [form, setForm] = useState({
-    email: "",
-    password: "",
-  });
 
-  const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  const { TabPane } = Tabs;
 
   useEffect(() => {
     message(error);
     clearError();
   }, [clearError, error, message]);
 
-  const registerHandler = async () => {
+  const onFinish = async (values: ToServerLoginData) => {
     try {
-      await request("api/auth/register", "POST", { ...form });
-    } catch (e) {}
-  };
-
-  const loginHandler = async () => {
-    try {
-      const data = await request("api/auth/login", "POST", { ...form });
+      const data = await request("api/auth/login", "POST", { ...values });
       auth.login(data.token, data.userId);
     } catch (e) {}
   };
 
   return (
-    <form className={classes.auth}>
-      <TextField
-        // autoFocus
-        required
-        name="email"
-        label="Login"
-        placeholder="login"
-        value={form.email}
-        onChange={changeHandler}
-      />
-      <TextField
-        required
-        type="password"
-        name="password"
-        label="Password"
-        placeholder="password"
-        value={form.password}
-        onChange={changeHandler}
-      />
-      <div>
-        <Button
-          style={{ margin: "10px" }}
-          onClick={registerHandler}
-          variant="contained"
-          color="primary"
-          disabled={loading}
-        >
-          Sign in
-        </Button>
-        <Button
-          style={{ margin: "10px" }}
-          onClick={loginHandler}
-          variant="contained"
-          color="primary"
-          disabled={loading}
-        >
-          Log in
-        </Button>
-      </div>
-    </form>
+    <Tabs defaultActiveKey="1">
+      <TabPane tab="Tab 1" key="1">
+        <Login onFinish={onFinish} />
+      </TabPane>
+      <TabPane tab="Tab 2" key="2">
+        <Register />
+      </TabPane>
+    </Tabs>
   );
 };
