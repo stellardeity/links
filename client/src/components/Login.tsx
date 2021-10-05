@@ -1,39 +1,67 @@
 import React from "react";
-import { Button, Form, Input } from "antd";
+import { Button, Checkbox, Form, Input, Row } from "antd";
 import { ToServerLoginData } from "../interfaces";
-import Icon from "@ant-design/icons/lib/components/Icon";
+import { CompassTwoTone } from "@ant-design/icons";
+import Title from "antd/lib/typography/Title";
+import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 
 type Props = {
   onFinish: (values: ToServerLoginData) => void;
 };
 
 export const Login: React.FC<Props> = ({ onFinish }) => (
-  <Form
-    name="basic"
-    labelCol={{ span: 8 }}
-    initialValues={{ remember: true }}
-    onFinish={onFinish}
-    autoComplete="off"
-    className="login-form"
-  >
-    <Form.Item
-      name="email"
-      rules={[{ required: true, message: "Please input your email!" }]}
+  <CustomRow justify="center" align="middle">
+    <Form
+      name="basic"
+      labelCol={{ span: 8 }}
+      initialValues={{ remember: true }}
+      onFinish={onFinish}
+      autoComplete="off"
     >
-      <Input
-        prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
-        placeholder="Username"
-      />
-    </Form.Item>
-    <Form.Item
-      name="password"
-      rules={[{ required: true, message: "Please input your password!" }]}
-    >
-      <Input.Password />
-    </Form.Item>
-    <Button type="primary" htmlType="submit" className="login-form-button">
-      Log in
-    </Button>
-    Or <a href="">register now!</a>
-  </Form>
+      <TitleForm>
+        <CompassTwoTone style={{ fontSize: 40, marginRight: "10px" }} />
+        <Title level={2}>Link shortening</Title>
+      </TitleForm>
+      <Form.Item
+        name="email"
+        rules={[{ required: true, message: "Please input your email!" }]}
+      >
+        <Input placeholder="Email" />
+      </Form.Item>
+
+      <Form.Item
+        name="password"
+        rules={[{ required: true, message: "Please input your password!" }]}
+      >
+        <Input.Password placeholder="Password" />
+      </Form.Item>
+      <Form.Item>
+        <Checkbox>Remember me</Checkbox>
+        <ForgotPassword href="/register">Forgot password</ForgotPassword>
+        <LoginButton type="primary" htmlType="submit">
+          Log in
+        </LoginButton>
+        Or <NavLink to="/register">register now!</NavLink>
+      </Form.Item>
+    </Form>
+  </CustomRow>
 );
+
+const TitleForm = styled.div`
+  display: flex;
+  margin: 20px 0;
+`;
+
+const CustomRow = styled(Row)`
+  min-height: 100vh;
+`;
+
+const ForgotPassword = styled.a`
+  float: right;
+`;
+
+const LoginButton = styled(Button)`
+  width: 100%;
+  margin: 10px 0;
+`;

@@ -6,11 +6,14 @@ import { ToServerLoginData } from "../interfaces";
 import { Login } from "../components/Login";
 import { Tabs } from "antd";
 import { Register } from "../components/Register";
+import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 
 export const Auth = () => {
   const auth = useContext(AuthContext);
   const { request, error, clearError } = useHttp();
   const message = useMessage();
+  let history = useHistory();
 
   const { TabPane } = Tabs;
 
@@ -27,13 +30,27 @@ export const Auth = () => {
   };
 
   return (
-    <Tabs defaultActiveKey="1">
-      <TabPane tab="Tab 1" key="1">
+    <Wrapper
+      onChange={(key) => {
+        history.push(`/${key}`);
+      }}
+    >
+      <TabPane tab="Login" key="login">
         <Login onFinish={onFinish} />
       </TabPane>
-      <TabPane tab="Tab 2" key="2">
+      <TabPane tab="Register" key="register">
         <Register />
       </TabPane>
-    </Tabs>
+    </Wrapper>
   );
 };
+
+// defaultActiveKey={match.params.tab}
+//                       onChange={key => {
+//                         console.log(match);
+//                         history.push(`/tabs/${key}`);
+//                       }}
+
+const Wrapper = styled(Tabs)`
+  max-height: 100vh;
+`;
