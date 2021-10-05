@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from "react";
 import { useHttp } from "../hooks/http.hook";
 import { useMessage } from "../hooks/message.hook";
 import { AuthContext } from "../context/auth.context";
-import { ToServerLoginData } from "../interfaces";
+import { ToServerLoginData, ToServerRegisterData } from "../interfaces";
 import { Login } from "../components/Login";
 import { Tabs } from "antd";
 import { Register } from "../components/Register";
@@ -32,7 +32,7 @@ export const Auth = () => {
     } catch (e) {}
   };
 
-  const registerHandler = async (values: ToServerLoginData) => {
+  const registerHandler = async (values: ToServerRegisterData) => {
     try {
       console.log(values);
     } catch (e) {}

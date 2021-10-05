@@ -1,5 +1,5 @@
 export interface ILink {
-  _id: string,
+  _id: string;
   from: string;
   to: string;
   code: string;
@@ -11,4 +11,11 @@ export interface ILink {
 export type ToServerLoginData = {
   email: string;
   password: string;
-}
+};
+
+export type ToServerRegisterData = {
+  email: string;
+  password: string;
+  gender: "male" | "female" | "programmer";
+  follow: boolean;
+};

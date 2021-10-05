@@ -4,9 +4,10 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { CompassTwoTone } from "@ant-design/icons";
 import Title from "antd/lib/typography/Title";
+import { ToServerRegisterData } from "../interfaces";
 
 type Props = {
-  onFinish: (values: any) => void;
+  onFinish: (values: ToServerRegisterData) => void;
 };
 
 export const Register: React.FC<Props> = ({ onFinish }) => (
@@ -82,10 +83,6 @@ export const Register: React.FC<Props> = ({ onFinish }) => (
         ]}
       >
         <Input.Password placeholder="Confirm password" />
-      </Form.Item>
-
-      <Form.Item label="Date of Birth" name="date">
-        <DatePicker />
       </Form.Item>
 
       <Form.Item
