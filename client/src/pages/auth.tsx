@@ -25,10 +25,16 @@ export const Auth = () => {
     clearError();
   }, [clearError, error, message]);
 
-  const onFinish = async (values: ToServerLoginData) => {
+  const loginHandler = async (values: ToServerLoginData) => {
     try {
       const data = await request("api/auth/login", "POST", { ...values });
       auth.login(data.token, data.userId);
+    } catch (e) {}
+  };
+
+  const registerHandler = async (values: ToServerLoginData) => {
+    try {
+      console.log(values);
     } catch (e) {}
   };
 
@@ -39,11 +45,27 @@ export const Auth = () => {
         history.push(`${key}`);
       }}
     >
-      <TabPane tab={<span><LoginOutlined />Login</span>} key="/login">
-        <Login onFinish={onFinish} />
+      <TabPane
+        tab={
+          <span>
+            <LoginOutlined />
+            Login
+          </span>
+        }
+        key="/login"
+      >
+        <Login onFinish={loginHandler} />
       </TabPane>
-      <TabPane tab={<span><CheckCircleOutlined />Register</span>} key="/register">
-        <Register />
+      <TabPane
+        tab={
+          <span>
+            <CheckCircleOutlined />
+            Register
+          </span>
+        }
+        key="/register"
+      >
+        <Register onFinish={registerHandler} />
       </TabPane>
     </Wrapper>
   );
