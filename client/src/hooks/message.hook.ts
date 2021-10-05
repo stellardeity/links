@@ -1,9 +1,8 @@
 import { useCallback } from "react";
+import { message } from "antd";
 
 export const useMessage = () => {
   return useCallback((text) => {
-    if (text) {
-      window.alert(text);
-    }
+    text && message.error(text);
   }, []);
 };

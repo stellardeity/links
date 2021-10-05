@@ -11,13 +11,11 @@ import { useHistory, useLocation } from "react-router-dom";
 import { CheckCircleOutlined, LoginOutlined } from "@ant-design/icons";
 
 export const Auth = () => {
-  const auth = useContext(AuthContext);
-  const { request, error, clearError } = useHttp();
   let location = useLocation();
-
   const message = useMessage();
   let history = useHistory();
-
+  const auth = useContext(AuthContext);
+  const { request, error, clearError } = useHttp();
   const { TabPane } = Tabs;
 
   useEffect(() => {
@@ -34,7 +32,8 @@ export const Auth = () => {
 
   const registerHandler = async (values: ToServerRegisterData) => {
     try {
-      console.log(values);
+      await request("api/auth/register", "POST", { ...values });
+      history.push(`/login`);
     } catch (e) {}
   };
 

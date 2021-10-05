@@ -18,4 +18,5 @@ export type ToServerRegisterData = {
   password: string;
   gender: "male" | "female" | "programmer";
   follow: boolean;
+  confirm: string;
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, DatePicker, Form, Input, Radio, Row, Switch } from "antd";
+import { Button, Form, Input, Radio, Row, Switch } from "antd";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { CompassTwoTone } from "@ant-design/icons";
@@ -28,6 +28,12 @@ export const Register: React.FC<Props> = ({ onFinish }) => (
         name="gender"
         label="Who are you?"
         tooltip="This is a required field"
+        rules={[
+          {
+            required: true,
+            message: "",
+          },
+        ]}
       >
         <Radio.Group>
           <Radio.Button value="male">Male</Radio.Button>
@@ -58,7 +64,7 @@ export const Register: React.FC<Props> = ({ onFinish }) => (
         ]}
         hasFeedback
       >
-        <Input.Password placeholder="Password"  />
+        <Input.Password placeholder="Password" />
       </Form.Item>
 
       <Form.Item

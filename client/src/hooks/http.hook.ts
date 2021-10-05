@@ -21,14 +21,14 @@ export const useHttp = () => {
         const data = await response.json();
 
         if (!response.ok) {
+          setError(data.message || "Something went wrong");
           throw new Error(data.message || "Something went wrong");
         }
         setLoading(false);
 
         return data;
-      } catch (e: any) {
+      } catch (e) {
         setLoading(false);
-        setError(e.message);
         throw e;
       }
     },
