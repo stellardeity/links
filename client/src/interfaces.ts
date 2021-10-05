@@ -11,6 +11,7 @@ export interface ILink {
 export type ToServerLoginData = {
   email: string;
   password: string;
+  remember: boolean;
 };
 
 export type ToServerRegisterData = {

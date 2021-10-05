@@ -26,7 +26,7 @@ export const Auth = () => {
   const loginHandler = async (values: ToServerLoginData) => {
     try {
       const data = await request("api/auth/login", "POST", { ...values });
-      auth.login(data.token, data.userId);
+      auth.login(data.token, data.userId, values.remember);
     } catch (e) {}
   };
 

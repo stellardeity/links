@@ -12,10 +12,7 @@ type Props = {
 
 export const Login: React.FC<Props> = ({ onFinish }) => (
   <CustomRow justify="center" align="middle">
-    <Form
-      labelCol={{ span: 8 }}
-      onFinish={onFinish}
-    >
+    <Form labelCol={{ span: 8 }} initialValues={{ remember: true }} onFinish={onFinish}>
       <TitleForm>
         <CompassTwoTone style={{ fontSize: 40, marginRight: "10px" }} />
         <Title level={2}>Link shortening</Title>
@@ -34,7 +31,9 @@ export const Login: React.FC<Props> = ({ onFinish }) => (
         <Input.Password placeholder="Password" />
       </Form.Item>
       <Form.Item>
-        <Checkbox>Remember me</Checkbox>
+        <Form.Item name="remember" valuePropName="checked" noStyle>
+          <Checkbox defaultChecked={true}>Remember me</Checkbox>
+        </Form.Item>
         <ForgotPassword to="/register">Forgot password</ForgotPassword>
         <LoginButton type="primary" htmlType="submit">
           Log in
