@@ -33,7 +33,12 @@ router.post(
       }
 
       const hashedPassword = await bcrypt.hash(password, 12);
-      const user = new User({ email, password: hashedPassword, gender, follow });
+      const user = new User({
+        email,
+        password: hashedPassword,
+        gender,
+        follow,
+      });
 
       await user.save();
 
@@ -76,9 +81,7 @@ router.post(
           .json({ message: "Incorrect password, try again" });
       }
 
-      const token = jwt.sign({ userId: user.id }, config.get("jwtSecret"), {
-        expiresIn: "1h",
-      });
+      const token = jwt.sign({ userId: user.id }, config.get("jwtSecret"));
 
       res.json({ token, userId: user.id });
     } catch (e) {

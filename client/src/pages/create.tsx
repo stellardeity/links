@@ -1,8 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { makeStyles, TextField } from "@material-ui/core";
 import { useHttp } from "../hooks/http.hook";
 import { AuthContext } from "../context/auth.context";
-import { useHistory } from "react-router-dom";
+import { Loader } from "../components/Loader";
+import LinksList from "../components/LinksList";
 
 const useStyles = makeStyles({
   auth: {
@@ -14,15 +15,32 @@ const useStyles = makeStyles({
 
 export const Create = () => {
   const classes = useStyles();
-  const history = useHistory();
   const auth = useContext(AuthContext);
-  const { request } = useHttp();
+  const { loading, request } = useHttp();
   const [link, setLink] = useState("");
+
+  const [links, setLinks] = useState([]);
+  const { token } = useContext(AuthContext);
+
+  const fetchLinks = useCallback(async () => {
+    try {
+      const fetched = await request("api/link", "GET", null, {
+        Authorization: `Bearer ${token}`,
+      });
+      setLinks(fetched);
+    } catch (e) {}
+  }, [token, request]);
+
+  useEffect(() => {
+    fetchLinks();
+  }, [fetchLinks]);
+
+  if (loading) return <Loader />;
 
   const pressHandler = async (ev: React.KeyboardEvent) => {
     if (ev.key === "Enter") {
       try {
-        const data = await request(
+        await request(
           "api/link/generate",
           "POST",
           {
@@ -30,7 +48,6 @@ export const Create = () => {
           },
           { Authorization: `Bearer ${auth.token}` }
         );
-        history.push(`/detail/${data.link._id}`);
       } catch (e) {}
     }
   };
@@ -47,6 +64,7 @@ export const Create = () => {
         onChange={(e) => setLink(e.target.value)}
         onKeyPress={pressHandler}
       />
+      {!loading && <LinksList links={links} />}
     </div>
   );
 };
