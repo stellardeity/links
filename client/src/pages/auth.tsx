@@ -7,11 +7,14 @@ import { Login } from "../components/Login";
 import { Tabs } from "antd";
 import { Register } from "../components/Register";
 import styled from "styled-components";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
+import { CheckCircleOutlined, LoginOutlined } from "@ant-design/icons";
 
 export const Auth = () => {
   const auth = useContext(AuthContext);
   const { request, error, clearError } = useHttp();
+  let location = useLocation();
+
   const message = useMessage();
   let history = useHistory();
 
@@ -31,25 +34,20 @@ export const Auth = () => {
 
   return (
     <Wrapper
+      activeKey={location.pathname}
       onChange={(key) => {
-        history.push(`/${key}`);
+        history.push(`${key}`);
       }}
     >
-      <TabPane tab="Login" key="login">
+      <TabPane tab={<span><LoginOutlined />Login</span>} key="/login">
         <Login onFinish={onFinish} />
       </TabPane>
-      <TabPane tab="Register" key="register">
+      <TabPane tab={<span><CheckCircleOutlined />Register</span>} key="/register">
         <Register />
       </TabPane>
     </Wrapper>
   );
 };
-
-// defaultActiveKey={match.params.tab}
-//                       onChange={key => {
-//                         console.log(match);
-//                         history.push(`/tabs/${key}`);
-//                       }}
 
 const Wrapper = styled(Tabs)`
   max-height: 100vh;

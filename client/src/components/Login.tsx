@@ -13,11 +13,8 @@ type Props = {
 export const Login: React.FC<Props> = ({ onFinish }) => (
   <CustomRow justify="center" align="middle">
     <Form
-      name="basic"
       labelCol={{ span: 8 }}
-      initialValues={{ remember: true }}
       onFinish={onFinish}
-      autoComplete="off"
     >
       <TitleForm>
         <CompassTwoTone style={{ fontSize: 40, marginRight: "10px" }} />
@@ -27,7 +24,7 @@ export const Login: React.FC<Props> = ({ onFinish }) => (
         name="email"
         rules={[{ required: true, message: "Please input your email!" }]}
       >
-        <Input placeholder="Email" />
+        <Input placeholder="Email" type="email" />
       </Form.Item>
 
       <Form.Item
@@ -38,7 +35,7 @@ export const Login: React.FC<Props> = ({ onFinish }) => (
       </Form.Item>
       <Form.Item>
         <Checkbox>Remember me</Checkbox>
-        <ForgotPassword href="/register">Forgot password</ForgotPassword>
+        <ForgotPassword to="/register">Forgot password</ForgotPassword>
         <LoginButton type="primary" htmlType="submit">
           Log in
         </LoginButton>
@@ -57,7 +54,7 @@ const CustomRow = styled(Row)`
   min-height: 100vh;
 `;
 
-const ForgotPassword = styled.a`
+const ForgotPassword = styled(NavLink)`
   float: right;
 `;
 

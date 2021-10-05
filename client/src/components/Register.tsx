@@ -1,75 +1,81 @@
 import React from "react";
 import {
   Button,
-  Cascader,
   DatePicker,
   Form,
   Input,
-  InputNumber,
   Radio,
   Row,
   Select,
   Switch,
-  TreeSelect,
 } from "antd";
+import styled from "styled-components";
+import { NavLink } from "react-router-dom";
+import { CompassTwoTone } from "@ant-design/icons";
+import Title from "antd/lib/typography/Title";
 
 export const Register: React.FC = () => (
-  <Row justify="center" align="middle" style={{ minHeight: "100vh" }}>
-    <Form labelCol={{ span: 4 }} wrapperCol={{ span: 14 }} layout="horizontal">
-      <Form.Item label="Form Size" name="size">
+  <CustomRow justify="center" align="middle">
+    <Form autoComplete="off">
+      <TitleForm>
+        <CompassTwoTone style={{ fontSize: 40, marginRight: "10px" }} />
+        <div>
+          <Title level={2} style={{ margin: 0 }}>Link shortening</Title>
+          <Title level={5} style={{ margin: 0 }}>Registration</Title>
+        </div>
+      </TitleForm>
+      <Form.Item
+        name="gender"
+        label="Who are you?"
+        tooltip="This is a required field"
+      >
         <Radio.Group>
-          <Radio.Button value="small">Small</Radio.Button>
-          <Radio.Button value="default">Default</Radio.Button>
-          <Radio.Button value="large">Large</Radio.Button>
+          <Radio.Button value="male">Male</Radio.Button>
+          <Radio.Button value="female">Female</Radio.Button>
+          <Radio.Button value="programmer">Programmer</Radio.Button>
         </Radio.Group>
       </Form.Item>
-      <Form.Item label="Input">
-        <Input />
+
+      <Form.Item>
+        <Input placeholder="Email" type="email" />
       </Form.Item>
-      <Form.Item label="Select">
-        <Select>
-          <Select.Option value="demo">Demo</Select.Option>
-        </Select>
+
+      <Form.Item style={{ marginBottom: "2px" }}>
+        <label>Your password: </label>
+        <Input placeholder="Password" style={{ margin: "5px 0" }} />
       </Form.Item>
-      <Form.Item label="TreeSelect">
-        <TreeSelect
-          treeData={[
-            {
-              title: "Light",
-              value: "light",
-              children: [{ title: "Bamboo", value: "bamboo" }],
-            },
-          ]}
-        />
+      <Form.Item>
+        <Input placeholder="Confirm password" />
       </Form.Item>
-      <Form.Item label="Cascader">
-        <Cascader
-          options={[
-            {
-              value: "zhejiang",
-              label: "Zhejiang",
-              children: [
-                {
-                  value: "hangzhou",
-                  label: "Hangzhou",
-                },
-              ],
-            },
-          ]}
-        />
-      </Form.Item>
-      <Form.Item label="DatePicker">
+      <Form.Item label="Date of Birth">
         <DatePicker />
       </Form.Item>
-      <Form.Item label="InputNumber">
-        <InputNumber />
-      </Form.Item>
-      <Form.Item label="Switch" valuePropName="checked">
+
+      <Form.Item
+        valuePropName="checked"
+        label="I want to receive the newsletter by mail"
+      >
         <Switch />
       </Form.Item>
-      <Form.Item label="Button">
-        <Button>Button</Button>
+      <Form.Item>
+        <Button type="primary" htmlType="submit">
+          Sign Up
+        </Button>
+        <ForgotPassword to="/login">I already have an account</ForgotPassword>
       </Form.Item>
     </Form>
-  </Row>
+  </CustomRow>
 );
+
+const CustomRow = styled(Row)`
+  min-height: 100vh;
+`;
+
+const ForgotPassword = styled(NavLink)`
+  float: right;
+`;
+
+const TitleForm = styled.div`
+  display: flex;
+  margin: 20px 0;
+`;

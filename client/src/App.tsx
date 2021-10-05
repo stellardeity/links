@@ -4,6 +4,7 @@ import { useAuth } from "./hooks/auth.hook";
 import { AuthContext } from "./context/auth.context";
 import { Navbar } from "./components/Navbar";
 import { Loader } from "./components/Loader";
+import { withRouter } from "react-router-dom";
 
 const App = () => {
   const { token, login, logout, userId, ready } = useAuth();
@@ -31,4 +32,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default withRouter(App);
