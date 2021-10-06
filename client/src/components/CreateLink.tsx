@@ -2,6 +2,7 @@ import { Input } from "antd";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/auth.context";
 import { useHttp } from "../hooks/http.hook";
+import { ILink } from "../interfaces";
 import LinksList from "./LinksList";
 
 export const CreateLink: React.FC = () => {
@@ -9,7 +10,7 @@ export const CreateLink: React.FC = () => {
   const [link, setLink] = useState("");
   const auth = useContext(AuthContext);
 
-  const [links, setLinks] = useState([]);
+  const [links, setLinks] = useState<Array<ILink>>([]);
 
   const fetchLinks = useCallback(async () => {
     try {
@@ -23,7 +24,7 @@ export const CreateLink: React.FC = () => {
   const pressHandler = async (ev: React.KeyboardEvent) => {
     if (ev.key === "Enter") {
       try {
-        await request(
+        const data = await request(
           "api/link/generate",
           "POST",
           {
@@ -31,7 +32,7 @@ export const CreateLink: React.FC = () => {
           },
           { Authorization: `Bearer ${auth.token}` }
         );
-        fetchLinks();
+        setLinks((prevState: Array<ILink>) => [...prevState, data.link]);
       } catch (e) {}
     }
   };
@@ -54,7 +55,7 @@ export const CreateLink: React.FC = () => {
         onChange={(e) => setLink(e.target.value)}
         value={link}
       />
-      {!loading && <LinksList links={links} />}
+      {!loading && <LinksList links={links} setLinks={setLinks} />}
     </>
   );
 };

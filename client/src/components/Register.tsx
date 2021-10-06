@@ -41,7 +41,9 @@ export const Register: React.FC<Props> = ({ onFinish }) => (
           <Radio.Button value="programmer">Programmer</Radio.Button>
         </Radio.Group>
       </Form.Item>
-
+      <Form.Item name="avatar">
+        <Input placeholder="Avatar" />
+      </Form.Item>
       <Form.Item
         rules={[
           {

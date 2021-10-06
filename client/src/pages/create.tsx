@@ -40,6 +40,7 @@ export const Create = () => {
       />
       <CreateLink />
       <Drawer
+        width={300}
         title="Your Profile"
         placement="right"
         onClose={handleDrawer}
@@ -47,7 +48,7 @@ export const Create = () => {
       >
         <Profile />
         <Button
-          style={{ width: 200, position: "absolute", bottom: 10 }}
+          style={{ width: 250, position: "absolute", bottom: 10 }}
           onClick={handleLogout}
         >
           Log Out

@@ -32,6 +32,7 @@ export const Auth = () => {
 
   const registerHandler = async (values: ToServerRegisterData) => {
     try {
+      console.log(values);
       await request("api/auth/register", "POST", { ...values });
       history.push(`/login`);
     } catch (e) {}

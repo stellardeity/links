@@ -25,7 +25,7 @@ router.post(
         });
       }
 
-      const { email, password, gender, follow } = req.body;
+      const { email, password, gender, follow, avatar } = req.body;
       const candidate = await User.findOne({ email });
 
       if (candidate) {
@@ -38,6 +38,7 @@ router.post(
         password: hashedPassword,
         gender,
         follow,
+        avatar,
       });
 
       await user.save();
