@@ -1,4 +1,4 @@
-import { Avatar, Button, Input, Typography, Image } from "antd";
+import { Avatar, Button, Input, Typography, Image, message } from "antd";
 import { useCallback, useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { AuthContext } from "../context/auth.context";
@@ -22,7 +22,7 @@ export const Profile = () => {
 
   const editAvatar = useCallback(async () => {
     try {
-      const data = await request(
+      await request(
         `api/user/${userId}/edit`,
         "PATCH",
         { avatar },
@@ -30,7 +30,7 @@ export const Profile = () => {
           Authorization: `Bearer ${token}`,
         }
       );
-      setAvatar(data);
+      message.success('Success update avatar');
     } catch (e) {}
   }, [request, userId, avatar, token]);
 
@@ -38,14 +38,18 @@ export const Profile = () => {
     fetchUser();
   }, [fetchUser]);
 
+  useEffect(() => {
+    setAvatar(user?.avatar);
+  }, [user]);
+
   if (!user) {
     return <Loader />;
   }
 
   return (
-    <div style={{ textAlign: 'center' }}>
+    <div style={{ textAlign: "center" }}>
       <ProfileInfo>
-        <Avatar style={{ marginRight: 10 }} size="large" src={user.avatar} />
+        <Avatar style={{ marginRight: 10 }} size="large" src={avatar} />
         <Info>
           <Typography.Text>{user.email}</Typography.Text>
           <Typography.Text strong>{user.gender}</Typography.Text>
@@ -55,11 +59,11 @@ export const Profile = () => {
         style={{ margin: "20px 0" }}
         placeholder="Avatar"
         onChange={(e) => setAvatar(e.target.value)}
+        value={avatar}
       />
-      {avatar && <Image style={{ marginBottom: 20 }} width={200}
-      height={200} src={avatar} />}
-      <Button style={{ width: 200 }} onClick={editAvatar}>Edit</Button>
-
+      <Button style={{ width: 200 }} onClick={editAvatar}>
+        Edit
+      </Button>
     </div>
   );
 };

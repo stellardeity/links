@@ -3,6 +3,7 @@ import { Button, List, Skeleton } from "antd";
 import { useHttp } from "../hooks/http.hook";
 import { AuthContext } from "../context/auth.context";
 import { ILink } from "../interfaces";
+import { Loader } from "./Loader";
 
 type Props = {
   links: Array<ILink>;
@@ -15,6 +16,10 @@ const LinksList: React.FC<Props> = ({ links, setLinks }) => {
 
   if (!links.length) {
     return <p>Links list is empty</p>;
+  }
+
+  if (!links) {
+    return <Loader />;
   }
 
   const handleDelete = async (id: string) => {
