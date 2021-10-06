@@ -15,7 +15,7 @@ app.use("/api/auth", require("./routes/auth.routes"));
 app.use("/api/link", require("./routes/link.routes"));
 app.use("/api/jwt", require("./routes/token.routes"));
 app.use("/api/user", require("./routes/profile.routes"));
-app.use("/t", require("./routes/redirect.routes"));
+app.use("/alatfar", require("./routes/redirect.routes"));
 
 if (process.env.NODE_ENV === "production") {
   app.use("/", express.static(path.join(__dirname, "client", "build")));
