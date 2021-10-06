@@ -1,70 +1,58 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
-import { makeStyles, TextField } from "@material-ui/core";
+import React, { useContext, useState } from "react";
 import { useHttp } from "../hooks/http.hook";
-import { AuthContext } from "../context/auth.context";
 import { Loader } from "../components/Loader";
-import LinksList from "../components/LinksList";
-
-const useStyles = makeStyles({
-  auth: {
-    marginTop: "50px",
-    display: "grid",
-    placeItems: "center",
-  },
-});
+import { AuthContext } from "../context/auth.context";
+import { useHistory } from "react-router-dom";
+import { CreateLink } from "../components/CreateLink";
+import { Button, Drawer } from "antd";
+import { Profile } from "../components/Profile";
+import { UserOutlined } from "@ant-design/icons";
 
 export const Create = () => {
-  const classes = useStyles();
   const auth = useContext(AuthContext);
-  const { loading, request } = useHttp();
-  const [link, setLink] = useState("");
+  const history = useHistory();
+  const { loading } = useHttp();
+  const [visible, setVisible] = useState(false);
 
-  const [links, setLinks] = useState([]);
-  const { token } = useContext(AuthContext);
-
-  const fetchLinks = useCallback(async () => {
-    try {
-      const fetched = await request("api/link", "GET", null, {
-        Authorization: `Bearer ${token}`,
-      });
-      setLinks(fetched);
-    } catch (e) {}
-  }, [token, request]);
-
-  useEffect(() => {
-    fetchLinks();
-  }, [fetchLinks]);
-
-  if (loading) return <Loader />;
-
-  const pressHandler = async (ev: React.KeyboardEvent) => {
-    if (ev.key === "Enter") {
-      try {
-        await request(
-          "api/link/generate",
-          "POST",
-          {
-            from: link,
-          },
-          { Authorization: `Bearer ${auth.token}` }
-        );
-      } catch (e) {}
-    }
+  const handleLogout = () => {
+    auth.logout();
+    history.push("/");
   };
 
+  const handleDrawer = () => setVisible(!visible);
+  if (loading) return <Loader />;
+
   return (
-    <div className={classes.auth}>
-      <TextField
-        autoFocus
-        required
-        name="Link"
-        label="Add Link"
-        placeholder="link"
-        value={link}
-        onChange={(e) => setLink(e.target.value)}
-        onKeyPress={pressHandler}
+    <>
+      <Button
+        type="primary"
+        shape="circle"
+        icon={<UserOutlined style={{ fontSize: 20 }} />}
+        onClick={handleDrawer}
+        style={{
+          position: "fixed",
+          zIndex: 2,
+          bottom: 20,
+          right: 50,
+          width: 60,
+          height: 60,
+        }}
       />
-      {!loading && <LinksList links={links} />}
-    </div>
+      <CreateLink />
+      <Drawer
+        title="Your Profile"
+        placement="right"
+        onClose={handleDrawer}
+        visible={visible}
+      >
+        <Profile />
+        <Button
+          style={{ width: 200, position: "absolute", bottom: 10 }}
+          onClick={handleLogout}
+        >
+          Log Out
+        </Button>
+      </Drawer>
+    </>
   );
 };

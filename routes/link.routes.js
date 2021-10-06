@@ -41,6 +41,15 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
+router.delete("/:id", auth, async (req, res) => {
+  try {
+    await Link.deleteOne({ _id: req.params.id });
+    res.status(201).json({ message: "User has been deleted" })
+  } catch (e) {
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
 router.get("/:id", auth, async (req, res) => {
   try {
     const link = await Link.findById(req.params.id);

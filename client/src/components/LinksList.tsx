@@ -1,47 +1,45 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import {
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from "@material-ui/core";
+import React, { useContext } from "react";
 import { ILink } from "../interfaces";
+import { Button, List, Skeleton } from "antd";
+import { useHttp } from "../hooks/http.hook";
+import { AuthContext } from "../context/auth.context";
 
 const LinksList = ({ links }: { links: Array<ILink> }) => {
+  const { request } = useHttp();
+  const auth = useContext(AuthContext);
+
   if (!links.length) {
     return <p>Links list is empty</p>;
   }
+
+  const handleDelete = async (id: string) => {
+    try {
+      await request(`api/link/${id}`, "DELETE", null, {
+        Authorization: `Bearer ${auth.token}`,
+      });
+    } catch (e) {}
+  };
+
   return (
-    <TableContainer style={{ marginTop: 10 }} component={Paper}>
-      <Table aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>#</TableCell>
-            <TableCell align="right">From</TableCell>
-            <TableCell align="right">To</TableCell>
-            <TableCell align="right">Clicks</TableCell>
-            <TableCell align="right">Date</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {links.map((link, i) => (
-            <TableRow key={link._id}>
-              <TableCell component="th" scope="row">
-                {i + 1}
-              </TableCell>
-              <TableCell align="right">{link.from}</TableCell>
-              <TableCell align="right"><Link to={`/detail/${link._id}`}>Open</Link></TableCell>
-              <TableCell align="right">{link.clicks}</TableCell>
-              <TableCell align="right">{link.date}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <List
+      dataSource={links}
+      renderItem={(link) => (
+        <List.Item
+          actions={[
+            <Button onClick={handleDelete.bind(null, link._id)} danger>
+              Delete
+            </Button>,
+          ]}
+        >
+          <Skeleton avatar title={false} loading={!links.length} active>
+            <List.Item.Meta
+              title={<a href={link.to}>{link.to}</a>}
+              description={link.from}
+            />
+          </Skeleton>
+        </List.Item>
+      )}
+    />
   );
 };
 

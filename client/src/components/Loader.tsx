@@ -1,5 +1,5 @@
-import { CircularProgress } from "@material-ui/core";
+import { Spin } from "antd";
 
 export const Loader = () => {
-  return <CircularProgress />;
+  return <Spin />;
 };
