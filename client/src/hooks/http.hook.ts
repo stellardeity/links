@@ -13,7 +13,7 @@ export const useHttp = () => {
           headers["Content-Type"] = "application/json";
         }
 
-        const response = await fetch(`http://localhost:8080/${url}`, {
+        const response = await fetch(`http://localhost:3001/${url}`, {
           method,
           body,
           headers,
